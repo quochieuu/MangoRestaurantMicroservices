@@ -1,7 +1,18 @@
+using Mango.Web.Services.IServices;
+using Mango.Web.Services;
+using Mango.Web;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient<IProductService, ProductService>();
+
+SD.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
+
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
